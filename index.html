@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html ng-app="contractorsApp">
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css">
+	<script type="text/javascript" src="js/socket.io.js"></script>
+	<script type="text/javascript" src="js/angular.min.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
+</head>
+
+<body ng-controller="BodyController as bodyCtrl">
+	<script>
+		var socket = io.connect('https://sand.geocom.pro:8056', { query: 'sessionID=sesja1' });
+
+		socket.on('connect', function () {
+	    socket.on('commandResult', function (params) {
+				console.log('commandResult', params);
+	    });
+    	socket.emit('login', { login:'root', password:'12345' });
+	  });
+	</script>
+	<div id="top" ng-style="bodyCtrl.menuStyle">
+		<ul>
+			<li><a href>&#x2261;<span ng-hide="bodyCtrl.isShort">&nbsp;Lista kontrahentów</span></a></li>
+			<li><a href>&#x2b;<span ng-hide="bodyCtrl.isShort">&nbsp;Dodaj nowego kontrahenta</span></a></li>
+		</ul>
+	</div>
+	<div id="main" ng-style="bodyCtrl.mainStyle">
+	</div>
+</body>
+
+</html>
