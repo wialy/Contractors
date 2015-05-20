@@ -19,14 +19,20 @@
 	    socket.on('commandResult', function (params) {
 			console.log('commandResult', params);
 	    });
-    	socket.emit('command', {
+			socket.emit('command', {
     		jsonrpc:	'2.0',
     		id:			String(commandID++),
     		method:		'login',
     		params:	{
-	    		login:		'root', 
+	    		login:		'root',
 	    		password:	'12345'
     		}
+    	});
+			socket.emit('command', {
+    		jsonrpc:	'2.0',
+    		id:			String(commandID++),
+    		method:		'CRM.query.getOrganizationList',
+    		params:	null
     	});
 	  });
 	</script>
