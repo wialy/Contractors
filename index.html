@@ -11,40 +11,22 @@
 	<script type="text/javascript" src="js/app.js"></script>
 </head>
 
-<body ng-controller="BodyController as bodyCtrl">
-	<!-- <script>
-		var socket = io.connect('https://sand.geocom.pro:8056', { query: 'sessionID=sesja1' }),
-			commandID = 0;
-
-		socket.on('connect', function () {
-	    socket.on('commandResult', function (params) {
-			console.log('commandResult', params);
-	    });
-			socket.emit('command', {
-    		jsonrpc:	'2.0',
-    		id:			String(commandID++),
-    		method:		'login',
-    		params:	{
-	    		login:		'root',
-	    		password:	'12345'
-    		}
-    	});
-			socket.emit('command', {
-    		jsonrpc:	'2.0',
-    		id:			String(commandID++),
-    		method:		'CRM.query.getOrganizationList',
-    		params:	null
-    	});
-	  });
-	</script> -->
+<body ng-controller="BodyController as bodyController">
 	
-	<div id="top" ng-style="bodyCtrl.menuStyle">
+	<div id="top" ng-style="bodyController.menuStyle">
 		<ul>
-			<li><a href>&#x2261;<span ng-hide="bodyCtrl.isShort">&nbsp;Lista kontrahentów</span></a></li>
-			<li><a href>&#x2b;<span ng-hide="bodyCtrl.isShort">&nbsp;Dodaj nowego kontrahenta</span></a></li>
+			<li><a href>&#x2261;<span ng-hide="bodyController.isShort">&nbsp;Lista kontrahentów</span></a></li>
+			<li><a href>&#x2b;<span ng-hide="bodyController.isShort">&nbsp;Dodaj nowego kontrahenta</span></a></li>
 		</ul>
 	</div>
-	<div id="main" ng-style="bodyCtrl.mainStyle">
+	<div id="main" ng-style="bodyController.mainStyle">
+		<section id="contractors">
+			<ul ng-show="bodyController.contractors.length">
+				<li ng-repeat="c in bodyController.contractors">
+					{{c}}
+				</li>
+			</ul>
+		</section>
 	</div>
 </body>
 
