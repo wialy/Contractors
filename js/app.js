@@ -242,6 +242,10 @@ angular.module('contractorsApp', ['ngRoute'])
 		};
 		$scope.contractor.VATCountry = '';
 		$scope.contractor.VATID = '';
+		
+		if(!$scope.$$phase) {
+			$scope.$apply();
+		}
 	}
 	
 	$scope.update = function(contractor) {
