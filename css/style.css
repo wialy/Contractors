@@ -4,6 +4,12 @@ body {
   overflow: hidden;
 }
 
+ul, li {
+	margin:		0;
+	padding:	0;
+	list-style-type: none;
+}
+
 #top {
   background-color: #FFFFFF;
   overflow: hidden;
@@ -28,4 +34,13 @@ body {
   background-color: #EFEFEF;
   overflow-y:       scroll;
   padding:          6px 20px;
+}
+
+label {
+	width:	100px;
+	text-align: right;
+}
+
+input:disabled {
+	background-color: #FFFFFF;
 }

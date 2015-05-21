@@ -8,25 +8,20 @@
 	<link rel="stylesheet" href="css/style.css">
 	<script type="text/javascript" src="js/socket.io.js"></script>
 	<script type="text/javascript" src="js/angular.min.js"></script>
+	<script type="text/javascript" src="js/angular-route.min.js"></script>
 	<script type="text/javascript" src="js/app.js"></script>
 </head>
 
 <body ng-controller="BodyController as bodyController">
-	
+
 	<div id="top" ng-style="menuStyle">
 		<ul>
-			<li><a href>&#x2261;<span ng-hide="isShort">&nbsp;Lista kontrahentów</span></a></li>
-			<li><a href>&#x2b;<span ng-hide="isShort">&nbsp;Dodaj nowego kontrahenta</span></a></li>
+			<li><a href="#list"><b>&#x2261;</b><span ng-hide="isShort">&nbsp;Lista kontrahentów</span></a></li>
+			<li><a href="#add"><b>&#x2b;</b><span ng-hide="isShort">&nbsp;Dodaj nowego kontrahenta</span></a></li>
 		</ul>
 	</div>
 	<div id="main" ng-style="mainStyle">
-		<section id="contractors">
-			<ul ng-show="contractors.length">
-				<li ng-repeat="c in contractors">
-					<b>{{c.organizationID}}</b> {{c.name}}
-				</li>
-			</ul>
-		</section>
+		<ng-view></ng-view>
 	</div>
 </body>
 

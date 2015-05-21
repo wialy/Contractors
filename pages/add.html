@@ -1,0 +1,14 @@
+<form name="addForm" novalidate>
+<p><label>ID:</label> <input type="text" ng-model="contractor.organizationID"/ required></p>
+<p><label>Nazwa:</label> <input type="text" ng-model="contractor.name"/ required></p>
+<p><label>Kraj:</label> <input type="text" ng-model="contractor.representativeAddress.country"/></p>
+<p><label>Stan:</label> <input type="text" ng-model="contractor.representativeAddress.state"/></p>
+<p><label>Miasto:</label> <input type="text" ng-model="contractor.representativeAddress.city"/></p>
+<p><label>Telefon:</label> <input type="text" ng-model="contractor.representativeAddress.landlinePhoneNumber"/></p>
+<p><label>Adnotacje:</label> <input type="text" ng-model="contractor.representativeAddress.annotation"/></p>
+<p><label>Kod kraju VAT:</label> <input type="text" ng-model="contractor.VATCountry"/></p>
+<p><label>VAT ID:</label> <input type="text" ng-model="contractor.VATID"/></p>
+<p><input type="submit" ng-disabled="addForm.$invalid" ng-click="update(contractor)"/>&nbsp;<input type="reset" ng-click="reset()"/></p>
+</form>
+<!-- <pre>form = {{contractor | json}}</pre> -->
+

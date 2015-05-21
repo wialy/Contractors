@@ -1,0 +1,6 @@
+<p ng-hide="isLoaded">Loading...</p>
+<ul ng-show="contractors.length && isLoaded">
+	<li ng-repeat="c in contractors">
+		<a href="#details/{{c.organizationID}}"><b>{{c.organizationID}}</b> {{c.name}}</a>
+	</li>
+</ul>
