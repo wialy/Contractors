@@ -13,17 +13,17 @@
 
 <body ng-controller="BodyController as bodyController">
 	
-	<div id="top" ng-style="bodyController.menuStyle">
+	<div id="top" ng-style="menuStyle">
 		<ul>
-			<li><a href>&#x2261;<span ng-hide="bodyController.isShort">&nbsp;Lista kontrahentów</span></a></li>
-			<li><a href>&#x2b;<span ng-hide="bodyController.isShort">&nbsp;Dodaj nowego kontrahenta</span></a></li>
+			<li><a href>&#x2261;<span ng-hide="isShort">&nbsp;Lista kontrahentów</span></a></li>
+			<li><a href>&#x2b;<span ng-hide="isShort">&nbsp;Dodaj nowego kontrahenta</span></a></li>
 		</ul>
 	</div>
-	<div id="main" ng-style="bodyController.mainStyle">
+	<div id="main" ng-style="mainStyle">
 		<section id="contractors">
-			<ul ng-show="bodyController.contractors.length">
-				<li ng-repeat="c in bodyController.contractors">
-					{{c}}
+			<ul ng-show="contractors.length">
+				<li ng-repeat="c in contractors">
+					<b>{{c.organizationID}}</b> {{c.name}}
 				</li>
 			</ul>
 		</section>

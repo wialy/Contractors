@@ -2,11 +2,15 @@
 
 angular.module('contractorsApp', [])
 
+// Service for data handling and communication with back-end
 .service('DataService', ['$rootScope', function($rootScope){
 	
+	// commands used in client-server communication	
 	var CMD_LOGIN = 		'login',
 		CMD_GET_LIST = 		'CRM.query.getOrganizationList';
 	
+	
+	// service variables and methods
 	var service = {
 		isConnected:	false,
 		isLoggedIn:		false,
@@ -22,6 +26,7 @@ angular.module('contractorsApp', [])
 		}
 	};
 	
+	// connection to socket
 	var socket = io.connect('https://sand.geocom.pro:8056', { query: 'sessionID=sesja1' });
 	var onConnected = function() {
 		service.isConnected = true;
@@ -29,6 +34,7 @@ angular.module('contractorsApp', [])
 	};
 	socket.on('connect', onConnected);
 	
+	// commands execution methods
 	var commandID = 0;
 	var pendingCommands = {};
 	
@@ -46,8 +52,9 @@ angular.module('contractorsApp', [])
 	    });
 	}	
 	
+	// handling the command result
 	socket.on('commandResult', function (params) {
-		console.log('commandResult', params);
+		// console.log('commandResult', params);
 		
 		var pendingCommand = pendingCommands[params.id];
 		
@@ -56,7 +63,6 @@ angular.module('contractorsApp', [])
 				case CMD_LOGIN:
 					service.isLogged = params.result;
 					$rootScope.$broadcast('event.login', service.isLogged);
-					// console.log('isLogged', service.isLogged);
 				break;
 				
 				case CMD_GET_LIST:
@@ -71,6 +77,7 @@ angular.module('contractorsApp', [])
 	return service;
 }])
 
+// Service responsible for window resizing
 .service('ResizeService', ['$rootScope', '$document', '$window', function($rootScope, $document, $window) {
 	var service = {
 		w:	0,
@@ -93,15 +100,18 @@ angular.module('contractorsApp', [])
 	return service;
 }])
 
+// Main controller
 .controller('BodyController', ['$scope', 'DataService', 'ResizeService', function($scope, DataService, ResizeService){
 	var self = this;
 	
-	this.menuStyle = {};
-	this.contaierStyle = {};
-	this.isShort = false;
-	this.contractors = [];
+	$scope.menuStyle = {};		// style for menu
+	$scope.contaierStyle = {};	// style for container
+	$scope.isShort = false;		// menu elements are shown as icos on small screens
+	 
+	$scope.contractors = [];	// contractors data
 	
 	this.updateScope = function() {
+		// update scope only if not currenlty updating
 		if(!$scope.$$phase) {
 			$scope.$apply();
 		}	
@@ -112,31 +122,31 @@ angular.module('contractorsApp', [])
 		var h = ResizeService.h;
 
 		if(w < h || (w > h && h > 480)) {
-			// top
-			self.menuStyle = {
+			// menu at top
+			$scope.menuStyle = {
 				width: 	w + 'px',
 				height: '30px',
 				float: 'none'
 			};
-			self.mainStyle = {
+			$scope.mainStyle = {
 				width: 	w + 'px',
 				height: (h-30) + 'px',
 				float: 'none'
 			};
-			self.isShort = w < 400;
+			$scope.isShort = w < 400;
 		} else {
-			// side
-			self.menuStyle = {
+			// menu at side 
+			$scope.menuStyle = {
 				width: 	'30px',
 				height: h + 'px',
 				float: 'left'
 			};
-			self.mainStyle = {
+			$scope.mainStyle = {
 				width: 	(w-30) + 'px',
 				height: h + 'px',
 				float: 'left'
 			};
-			self.isShort = true;
+			$scope.isShort = true;
 		}
 		
 		self.updateScope();
@@ -150,13 +160,11 @@ angular.module('contractorsApp', [])
 		if(args === true) {
 			DataService.getList();
 		}
-	});
-	
+	});	
 	
 	$scope.$on('event.update', function(e, args){
-		self.contractors = args;
+		$scope.contractors = args;
 		self.updateScope();
-		// console.log(self.contractors);
 	});
 	
 	$scope.$on('event.resize', this.onResize); 
